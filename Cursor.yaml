@@ -1,0 +1,21 @@
+# NAME: Cursor
+# REFERENCE: https://cursor.com/docs/enterprise/network-configuration
+# REFERENCE: https://cursor.com/help/troubleshooting/sign-in-domains
+# REFERENCE: https://github.com/dler-io/Rules/blob/main/Clash/Provider/AI%20Suite.yaml
+# REFERENCE: https://github.com/v2fly/domain-list-community/blob/master/data/cursor
+# DOMAIN: 7
+# DOMAIN-SUFFIX: 5
+# TOTAL: 12
+payload:
+  - DOMAIN,anysphere-binaries.s3.us-east-1.amazonaws.com
+  - DOMAIN,accounts.spacex.ai
+  - DOMAIN,accounts.x.ai
+  - DOMAIN,auth.x.ai
+  - DOMAIN,auth.grok.com
+  - DOMAIN,auth.grokusercontent.com
+  - DOMAIN,auth.grokipedia.com
+  - DOMAIN-SUFFIX,cursor.sh
+  - DOMAIN-SUFFIX,cursor.com
+  - DOMAIN-SUFFIX,cursorapi.com
+  - DOMAIN-SUFFIX,cursor-cdn.com
+  - DOMAIN-SUFFIX,cursorvm.com

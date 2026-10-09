@@ -58,6 +58,18 @@ DOMAIN-SUFFIX,grok.com
 #perplexity.ai
 DOMAIN-SUFFIX,perplexity.ai
 
+#cursor
+# https://cursor.com/docs/enterprise/network-configuration
+DOMAIN-SUFFIX,cursor.sh
+DOMAIN-SUFFIX,cursor.com
+DOMAIN-SUFFIX,cursorapi.com
+DOMAIN-SUFFIX,cursor-cdn.com
+DOMAIN-SUFFIX,cursorvm.com
+DOMAIN,anysphere-binaries.s3.us-east-1.amazonaws.com
+# Cursor shared sign-in; x.ai / grok hosts are covered by #grok above
+# https://cursor.com/help/troubleshooting/sign-in-domains
+DOMAIN,accounts.spacex.ai
+
 #VS CODE AI chat
 PROCESS-NAME,Code Helper
 PROCESS-NAME,Code Helper (Plugin)
