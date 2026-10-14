@@ -25,10 +25,10 @@
 
 ### 使用本仓库更新
 
-若客户端仍引用 `Liang-MH/rules/main/Developer.list`，本仓库的更新不会自动应用。仅将已有 `rule-providers.developer.url` 改为：
+GitHub 已将本仓库从 `KARENLHAO/rules` 迁移到 `Liang-MH/rules`；旧 Git 远端会重定向到新仓库。推送时已确认该迁移提示。客户端已有的以下 `rule-providers.developer.url` 无需更换：
 
 ```text
-https://raw.githubusercontent.com/KARENLHAO/rules/main/Developer.list
+https://raw.githubusercontent.com/Liang-MH/rules/main/Developer.list
 ```
 
 保留该 provider 的 `type: http`、`behavior: classical`、`format: text`、现有 `path` 和刷新间隔，以及已有的 Developer 路由规则，然后刷新该规则集。无需修改“美国手动”或其他策略组。
