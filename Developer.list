@@ -1,5 +1,5 @@
 # 内容：Developer 开发者常用国外网站、镜像和论坛
-# 数量：19条
+# 数量：43条
 #image
 DOMAIN-KEYWORD,registry
 DOMAIN-SUFFIX,apache.org
@@ -31,7 +31,9 @@ DOMAIN-KEYWORD,huggingface
 
 
 DOMAIN-SUFFIX,r2.cloudflarestorage.com
-DOMAIN-SUFFIX,files.pythonhosted.org
+# PyPI 索引与包下载统一归入 Developer；来源与取舍见 README.md。
+DOMAIN-SUFFIX,pypi.org
+DOMAIN-SUFFIX,pythonhosted.org
 
 
 
