@@ -2,6 +2,17 @@
 
 本仓库提供 Clash / Mihomo 规则集，具体出口由客户端的策略组选择决定。
 
+## Meta AI 分流调整（2026-10-23）
+
+在 `AiDomain.list`（美国 AI 分流）新增 `#meta.ai` 段，域名复用以下已有配置（固定提交链接）：
+
+| 来源 | 核实结果 |
+| --- | --- |
+| [v2fly/domain-list-community：data/category-ai-!cn](https://github.com/v2fly/domain-list-community/blob/597956ad5d1c063d80329d58a6aaadf6dcec43a7/data/category-ai-!cn) | `# Meta` 段列出 `meta.ai`、`metaaivm.com`、`muse.ai`。 |
+| [dler-io/Rules：Clash/Provider/AI Suite.yaml](https://github.com/dler-io/Rules/blob/3ccf5720a78e34a71cf3b4f3abb8102e26e42aed/Clash/Provider/AI%20Suite.yaml) | `Meta AI / Muse` 段为 `DOMAIN-SUFFIX,meta.ai` 与 `DOMAIN-SUFFIX,muse.ai`。 |
+
+本次采用两者并集，三条均写为 `DOMAIN-SUFFIX`。v2fly `data/meta` 中的 `meta.com`、`facebook` 等 Meta 全站域名未加入 AI 分流，避免把整个 Meta 生态划进 AI 出口。客户端刷新 AiDomain 规则集即可生效。
+
 ## PyPI 分流调整（2026-10-14）
 
 ### GitHub 来源核对

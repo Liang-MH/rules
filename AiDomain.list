@@ -2,7 +2,7 @@
 
 DOMAIN-SUFFIX,cerebras.ai
 
-# 内容：OpenAi,claude,recraft,poe,bing,gemini,perplexity
+# 内容：OpenAi,claude,recraft,poe,bing,gemini,perplexity,meta.ai
 
 DOMAIN-KEYWORD,openai
 DOMAIN-KEYWORD,chatgpt
@@ -57,6 +57,13 @@ DOMAIN-SUFFIX,grok.com
 
 #perplexity.ai
 DOMAIN-SUFFIX,perplexity.ai
+
+#meta.ai
+# https://github.com/v2fly/domain-list-community/blob/597956ad5d1c063d80329d58a6aaadf6dcec43a7/data/category-ai-!cn
+# https://github.com/dler-io/Rules/blob/3ccf5720a78e34a71cf3b4f3abb8102e26e42aed/Clash/Provider/AI%20Suite.yaml
+DOMAIN-SUFFIX,meta.ai
+DOMAIN-SUFFIX,metaaivm.com
+DOMAIN-SUFFIX,muse.ai
 
 #cursor
 # https://cursor.com/docs/enterprise/network-configuration
