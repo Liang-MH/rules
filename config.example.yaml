@@ -1,0 +1,778 @@
+# 公开模板：已移除个人订阅、自建节点和私有 DNS。
+# 使用前把 proxy-providers.airport.url 换成你自己的订阅链接。
+
+proxy-providers:
+  airport:
+    url: "https://example.com/your-subscription-url"
+    type: http
+    interval: 86400
+    health-check:
+      {
+        enable: true,
+        url: "https://www.gstatic.com/generate_204",
+        interval: 300,
+      }
+    override:
+      additional-prefix: "[airport]"
+
+proxies:
+  - name: "直连"
+    type: direct
+    udp: true
+
+mixed-port: 7890
+ipv6: true
+allow-lan: true
+unified-delay: false
+tcp-concurrent: true
+external-controller: 127.0.0.1:9090
+external-ui: ui
+external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
+
+geodata-mode: true
+geox-url:
+  geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat"
+  geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+  mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb"
+  asn: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
+
+find-process-mode: strict
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+
+tun:
+  enable: true
+  stack: mixed
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+
+dns:
+  enable: true
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-filter:
+    - "*"
+    - "+.lan"
+    - "+.local"
+    - "+.market.xiaomi.com"
+  default-nameserver:
+    - tls://223.5.5.5
+    - tls://223.6.6.6
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  use-system-hosts: false
+
+proxy-groups:
+  - name: "🚀 节点选择"
+    type: select
+    proxies:
+      - DIRECT
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+      - "🇮🇳 印度节点"
+      - "🇪🇺 欧洲节点"
+      - "🇹🇷 土耳其节点"
+      - "🇲🇾 东南亚节点"
+      - "🫙 自定义"
+    include-all: true
+
+  - name: "🇺🇲 美区AI"
+    type: select
+    proxies:
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+
+  - name: "🔎 Google"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+      - "🫙 自定义"
+
+  - name: "🌈 CiciAI"
+    type: select
+    proxies:
+      - "🇸🇬 新加坡节点"
+      - "🚀 节点选择"
+      - "🇯🇵 日本节点"
+      - "🇬🇧 英国节点"
+      - "🇲🇾 东南亚节点"
+      - "🫙 自定义"
+
+  - name: "👨‍💻 Developer"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇬🇧 英国节点"
+      - "🇺🇲 美国节点"
+      - "🫙 自定义"
+
+  - name: "📲 Telegram"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - "🇸🇬 新加坡节点"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+      - "🇪🇺 欧洲节点"
+      - "🇹🇷 土耳其节点"
+      - "🇲🇾 东南亚节点"
+
+  - name: "🔒 Web3"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - DIRECT
+      - "🇸🇬 新加坡节点"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+      - "🇪🇺 欧洲节点"
+      - "🇹🇷 土耳其节点"
+      - "🇲🇾 东南亚节点"
+
+  - name: "📹 Youtube"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - "🇸🇬 新加坡节点"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+
+  - name: "📚 Edu"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - DIRECT
+      - "🇸🇬 新加坡节点"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+
+  - name: "🇬🇧 UKApps"
+    type: select
+    proxies:
+      - "🇬🇧 英国节点"
+
+  - name: "🎥 Netflix"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - DIRECT
+      - "🇸🇬 新加坡节点"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+
+  - name: "📺 DisneyPlus"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - DIRECT
+      - "🇸🇬 新加坡节点"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+
+  - name: "📺 哔哩哔哩"
+    type: select
+    proxies:
+      - "🎯 全球直连"
+      - "🇹🇼 台湾节点"
+      - "🇭🇰 香港节点"
+
+  - name: "🌍 国外媒体"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - DIRECT
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇺🇲 美国节点"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+
+  - name: "🌏 国内媒体"
+    type: select
+    proxies:
+      - DIRECT
+      - "🚀 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+
+  - name: "Ⓜ️ 微软服务"
+    type: select
+    proxies:
+      - DIRECT
+      - "🚀 节点选择"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇰🇷 韩国节点"
+
+  - name: "🍎 苹果服务"
+    type: select
+    proxies:
+      - DIRECT
+      - "🚀 节点选择"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇰🇷 韩国节点"
+
+  - name: "🎮 游戏平台"
+    type: select
+    proxies:
+      - DIRECT
+      - "🚀 节点选择"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇰🇷 韩国节点"
+
+  - name: "🎶 Spotify"
+    type: select
+    proxies:
+      - DIRECT
+      - "🚀 节点选择"
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇰🇷 韩国节点"
+      - "🇬🇧 英国节点"
+
+  - name: "🎯 全球直连"
+    type: select
+    proxies:
+      - DIRECT
+      - "🚀 节点选择"
+
+  - name: "🛑 广告拦截"
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: "🍃 应用净化"
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: "🐟 漏网之鱼"
+    type: select
+    proxies:
+      - "🇺🇲 美国节点"
+      - "🇺🇲 美国手动"
+      - "🚀 节点选择"
+      - DIRECT
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇰🇷 韩国节点"
+
+  - name: "🇭🇰 香港节点"
+    type: url-test
+    include-all: true
+    filter: "港|HK|(?i)Hong"
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/HK.png
+    interval: 300
+    tolerance: 50
+
+  - name: "🇯🇵 日本节点"
+    type: url-test
+    include-all: true
+    filter: "日|东京|JP|(?i)Japan"
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/JP.png
+    interval: 300
+    tolerance: 50
+
+  - name: "🇺🇲 美国节点"
+    type: url-test
+    include-all: true
+    filter: "美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States"
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/US.png
+    interval: 300
+    tolerance: 150
+
+  - name: "🇺🇲 美国手动"
+    type: select
+    include-all: true
+    filter: "(美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States)"
+
+  - name: "🫙 自定义"
+    type: select
+    include-all: true
+
+  - name: "🇹🇼 台湾节点"
+    type: url-test
+    include-all: true
+    filter: "台|新北|彰化|TW|Taiwan"
+    interval: 300
+    tolerance: 50
+
+  - name: "🇸🇬 新加坡节点"
+    type: url-test
+    include-all: true
+    filter: "新加坡|坡|狮城|SG|SIN|Singapore|SEA"
+    interval: 300
+    tolerance: 50
+
+  - name: "🇰🇷 韩国节点"
+    type: url-test
+    include-all: true
+    filter: "KR|Korea|KOR|首尔|韩|韓"
+    interval: 300
+    tolerance: 50
+
+  - name: "🇬🇧 英国节点"
+    type: url-test
+    include-all: true
+    filter: "英|英国|United Kingdom|UK"
+    interval: 300
+    tolerance: 50
+
+  - name: "🇮🇳 印度节点"
+    type: url-test
+    include-all: true
+    filter: "印度|India|IN"
+    interval: 300
+    tolerance: 50
+
+  - name: "🇪🇺 欧洲节点"
+    type: url-test
+    include-all: true
+    filter: "法|德|Fr|De|瑞典|Swedish|SE"
+    interval: 300
+    tolerance: 50
+
+  - name: "🇹🇷 土耳其节点"
+    type: url-test
+    include-all: true
+    filter: "土|土耳其|Turkey|TR"
+    interval: 300
+    tolerance: 50
+
+  - name: "🇲🇾 东南亚节点"
+    type: url-test
+    include-all: true
+    filter: "马来西亚|Malaysia|MY|泰|印尼|Th"
+    interval: 300
+    tolerance: 50
+
+rule-providers:
+  "lan":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/LocalAreaNetwork.list"
+    path: ./rules/LocalAreaNetwork.list
+
+  "unban":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/UnBan.list"
+    path: ./rules/UnBan.list
+
+  "banad":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/BanAD.list"
+    path: ./rules/BanAD.list
+
+  "banprogramad":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/BanProgramAD.list"
+    path: ./rules/BanProgramAD.list
+
+  "openai":
+    type: http
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/OpenAI.yaml"
+    path: ./rules/OpenAI.yaml
+
+  "claude":
+    type: http
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Claude.yaml"
+    path: ./rules/Claude.yaml
+
+  "copilot":
+    type: http
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Copilot.yaml"
+    path: ./rules/Copilot.yaml
+
+  "gemini":
+    type: http
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Gemini.yaml"
+    path: ./rules/Gemini.yaml
+
+  "google":
+    type: http
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Google.yaml"
+    path: ./rules/Google.yaml
+
+  "ciciai":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/CiciAi.list"
+    path: ./rules/CiciAi.list
+
+  "developer":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Developer.list"
+    path: ./rules/Developer.list
+
+  "microsoft":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Microsoft.list"
+    path: ./rules/Microsoft.list
+
+  "apple":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Apple.list"
+    path: ./rules/Apple.list
+
+  "telegram":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Telegram.list"
+    path: ./rules/Telegram.list
+
+  "web3":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Web3.list"
+    path: ./rules/Web3.list
+
+  "spotify":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Spotify.list"
+    path: ./rules/Spotify.list
+
+  "epic":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Epic.list"
+    path: ./rules/Epic.list
+
+  "sony":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Sony.list"
+    path: ./rules/Sony.list
+
+  "steam":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Steam.list"
+    path: ./rules/Steam.list
+
+  "game":
+    type: http
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Game.yaml"
+    path: ./rules/Game.yaml
+
+  "youtube":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/YouTube.list"
+    path: ./rules/YouTube.list
+
+  "khan":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Khan.list"
+    path: ./rules/Khan.list
+
+  "edutools":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Edutools.list"
+    path: ./rules/Edutools.list
+
+  "uk":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/UK.list"
+    path: ./rules/UK.list
+
+  "netflix":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Netflix.list"
+    path: ./rules/Netflix.list
+
+  "netflix_ip":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/NetflixIP.list"
+    path: ./rules/NetflixIP.list
+
+  "disneyplus":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/DisneyPlus.list"
+    path: ./rules/DisneyPlus.list
+
+  "bilibili":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Bilibili.list"
+    path: ./rules/Bilibili.list
+
+  "bilibili_hmt":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/BilibiliHMT.list"
+    path: ./rules/BilibiliHMT.list
+
+  "china_media":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/ChinaMedia.list"
+    path: ./rules/ChinaMedia.list
+
+  "proxy_media":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/ProxyMedia.list"
+    path: ./rules/ProxyMedia.list
+
+  "gfwlist":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/ProxyGFWlist.list"
+    path: ./rules/ProxyGFWlist.list
+
+  "china_domain":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/ChinaDomain.list"
+    path: ./rules/ChinaDomain.list
+
+  "china_company_ip":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/ChinaCompanyIp.list"
+    path: ./rules/ChinaCompanyIp.list
+
+  "download":
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/main/Download.list"
+    path: ./rules/Download.list
+
+  "cursor":
+    type: http
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: "https://raw.githubusercontent.com/Liang-MH/rules/refs/heads/main/Cursor.yaml"
+    path: ./rules/Cursor.list
+
+rules:
+  - RULE-SET,lan,🎯 全球直连
+  - RULE-SET,unban,🎯 全球直连
+  - RULE-SET,banad,🛑 广告拦截
+  - RULE-SET,banprogramad,🍃 应用净化
+  - RULE-SET,youtube,📹 Youtube
+  - RULE-SET,openai,🇺🇲 美区AI
+  - RULE-SET,claude,🇺🇲 美区AI
+  - RULE-SET,copilot,🇺🇲 美区AI
+  - RULE-SET,gemini,🇺🇲 美区AI
+  - RULE-SET,cursor,🇺🇲 美区AI
+  # Meta AI：与仓库 AiDomain.list 的 #meta.ai 段一致
+  - DOMAIN-SUFFIX,meta.ai,🇺🇲 美区AI
+  - DOMAIN-SUFFIX,metaaivm.com,🇺🇲 美区AI
+  - DOMAIN-SUFFIX,muse.ai,🇺🇲 美区AI
+  - RULE-SET,google,🔎 Google
+  - RULE-SET,ciciai,🌈 CiciAI
+  - RULE-SET,developer,👨‍💻 Developer
+  - RULE-SET,microsoft,Ⓜ️ 微软服务
+  - RULE-SET,apple,🍎 苹果服务
+  - RULE-SET,telegram,📲 Telegram
+  - RULE-SET,web3,🔒 Web3
+  - RULE-SET,spotify,🎶 Spotify
+  - RULE-SET,epic,🎮 游戏平台
+  - RULE-SET,sony,🎮 游戏平台
+  - RULE-SET,steam,🎮 游戏平台
+  - RULE-SET,game,🎮 游戏平台
+  - RULE-SET,khan,📚 Edu
+  - RULE-SET,edutools,📚 Edu
+  - RULE-SET,uk,🇬🇧 UKApps
+  - RULE-SET,netflix,🎥 Netflix
+  - RULE-SET,netflix_ip,🎥 Netflix
+  - RULE-SET,disneyplus,📺 DisneyPlus
+  - RULE-SET,bilibili,📺 哔哩哔哩
+  - RULE-SET,bilibili_hmt,📺 哔哩哔哩
+  - RULE-SET,china_media,🌏 国内媒体
+  - RULE-SET,proxy_media,🌍 国外媒体
+  - RULE-SET,gfwlist,🚀 节点选择
+  - RULE-SET,china_domain,🎯 全球直连
+  - RULE-SET,china_company_ip,🎯 全球直连
+  - RULE-SET,download,🎯 全球直连
+  - GEOIP,CN,🎯 全球直连
+  - MATCH,🐟 漏网之鱼
